@@ -2,8 +2,13 @@ server:
   port: 8083
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: plazoletatrace
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
 
 app:
   jwt:

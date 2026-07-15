@@ -48,6 +48,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                         Collections.singletonList(new SimpleGrantedAuthority(role))
                 );
 
+                Long userId = claims.get("id", Long.class);
+                if (userId == null) {
+                    userId = claims.get("userId", Long.class);
+                }
+                auth.setDetails(userId);
+
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
                 SecurityContextHolder.clearContext();
