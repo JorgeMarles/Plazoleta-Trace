@@ -2,11 +2,14 @@ package com.jamarlesf.plazoletatrace.domain.usecase;
 
 import com.jamarlesf.plazoletatrace.domain.api.IOrderLogServicePort;
 import com.jamarlesf.plazoletatrace.domain.exception.DomainException;
+import com.jamarlesf.plazoletatrace.domain.model.EmployeeRankingSummary;
+import com.jamarlesf.plazoletatrace.domain.model.OrderDurationSummary;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLog;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLogSummary;
 import com.jamarlesf.plazoletatrace.domain.model.OrderStatus;
 import com.jamarlesf.plazoletatrace.domain.spi.IOrderLogPersistencePort;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderLogUseCase implements IOrderLogServicePort {
@@ -87,5 +90,20 @@ public class OrderLogUseCase implements IOrderLogServicePort {
     @Override
     public List<OrderLogSummary> getOrderLogsByCustomerId(Long customerId) {
         return orderLogPersistencePort.findLogsByCustomerId(customerId);
+    }
+
+    @Override
+    public List<OrderDurationSummary> getAllOrderDurations(LocalDate date) {
+        return orderLogPersistencePort.findAllOrderDurations(date);
+    }
+
+    @Override
+    public OrderLogSummary getOrderLogSummaryByOrderId(Long orderId) {
+        return orderLogPersistencePort.findSummaryByOrderId(orderId);
+    }
+
+    @Override
+    public List<EmployeeRankingSummary> getEmployeePerformanceRanking() {
+        return orderLogPersistencePort.getEmployeePerformanceRanking();
     }
 }
