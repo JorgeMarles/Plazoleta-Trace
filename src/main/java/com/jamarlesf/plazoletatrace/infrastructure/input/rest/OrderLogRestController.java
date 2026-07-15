@@ -5,16 +5,19 @@ import com.jamarlesf.plazoletatrace.application.dto.request.DeliveredLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PendingLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PreparationLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.ReadyLogRequest;
+import com.jamarlesf.plazoletatrace.application.dto.response.OrderLogSummaryResponse;
 import com.jamarlesf.plazoletatrace.application.handler.IOrderLogHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 @RestController
 @RequestMapping("/api/v1/logs")
 @RequiredArgsConstructor
@@ -55,5 +58,11 @@ public class OrderLogRestController {
     public ResponseEntity<Void> logCancelled(@RequestBody CancelledLogRequest request) {
         orderLogHandler.createCancelledLog(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('CLIENTE')")
+    public ResponseEntity<List<OrderLogSummaryResponse>> getLogs() {
+        return ResponseEntity.ok(orderLogHandler.getLogsByUserId());
     }
 }
