@@ -3,8 +3,11 @@ package com.jamarlesf.plazoletatrace.domain.usecase;
 import com.jamarlesf.plazoletatrace.domain.api.IOrderLogServicePort;
 import com.jamarlesf.plazoletatrace.domain.exception.DomainException;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLog;
+import com.jamarlesf.plazoletatrace.domain.model.OrderLogSummary;
 import com.jamarlesf.plazoletatrace.domain.model.OrderStatus;
 import com.jamarlesf.plazoletatrace.domain.spi.IOrderLogPersistencePort;
+
+import java.util.List;
 
 public class OrderLogUseCase implements IOrderLogServicePort {
 
@@ -79,5 +82,10 @@ public class OrderLogUseCase implements IOrderLogServicePort {
                     ", but expected " + expectedPreviousStatus + " to perform this action.");
         }
         return lastLog;
+    }
+
+    @Override
+    public List<OrderLogSummary> getOrderLogsByCustomerId(Long customerId) {
+        return orderLogPersistencePort.findLogsByCustomerId(customerId);
     }
 }
