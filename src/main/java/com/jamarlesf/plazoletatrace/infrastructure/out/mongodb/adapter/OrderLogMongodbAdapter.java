@@ -1,5 +1,7 @@
 package com.jamarlesf.plazoletatrace.infrastructure.out.mongodb.adapter;
 
+import com.jamarlesf.plazoletatrace.domain.model.EmployeeRankingSummary;
+import com.jamarlesf.plazoletatrace.domain.model.OrderDurationSummary;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLog;
 import com.jamarlesf.plazoletatrace.domain.spi.IOrderLogPersistencePort;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLogSummary;
@@ -9,6 +11,7 @@ import com.jamarlesf.plazoletatrace.infrastructure.out.mongodb.repository.IOrder
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,5 +35,20 @@ public class OrderLogMongodbAdapter implements IOrderLogPersistencePort {
     @Override
     public List<OrderLogSummary> findLogsByCustomerId(Long customerId) {
         return orderLogCustomRepository.findLogsByCustomerIdGroupedByOrderId(customerId);
+    }
+
+    @Override
+    public List<OrderDurationSummary> findAllOrderDurations(LocalDate date) {
+        return orderLogCustomRepository.findAllOrderDurations(date);
+    }
+
+    @Override
+    public OrderLogSummary findSummaryByOrderId(Long orderId) {
+        return orderLogCustomRepository.findSummaryByOrderId(orderId);
+    }
+
+    @Override
+    public List<EmployeeRankingSummary> getEmployeePerformanceRanking() {
+        return orderLogCustomRepository.getEmployeePerformanceRanking();
     }
 }
