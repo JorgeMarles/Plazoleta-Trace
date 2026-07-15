@@ -11,7 +11,6 @@ import com.jamarlesf.plazoletatrace.application.mapper.IOrderLogRequestMapper;
 import com.jamarlesf.plazoletatrace.application.mapper.IOrderLogResponseMapper;
 import com.jamarlesf.plazoletatrace.domain.api.IOrderLogServicePort;
 import com.jamarlesf.plazoletatrace.domain.model.OrderLogSummary;
-import com.jamarlesf.plazoletatrace.infrastructure.security.utils.SecurityContextUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +50,7 @@ public class OrderLogHandlerImpl implements IOrderLogHandler {
     }
 
     @Override
-    public List<OrderLogSummaryResponse> getLogsByUserId() {
-        Long userId = SecurityContextUtils.getAuthenticatedUserId();
+    public List<OrderLogSummaryResponse> getLogsByUserId(Long userId) {
         List<OrderLogSummary> summaries = orderLogServicePort.getOrderLogsByCustomerId(userId);
         return orderLogResponseMapper.toResponseList(summaries);
     }

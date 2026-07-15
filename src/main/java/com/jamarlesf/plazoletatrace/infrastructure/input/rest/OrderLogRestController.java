@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import com.jamarlesf.plazoletatrace.infrastructure.security.utils.SecurityContextUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,6 +64,7 @@ public class OrderLogRestController {
     @GetMapping
     @PreAuthorize("hasAuthority('CLIENTE')")
     public ResponseEntity<List<OrderLogSummaryResponse>> getLogs() {
-        return ResponseEntity.ok(orderLogHandler.getLogsByUserId());
+        Long userId = SecurityContextUtils.getAuthenticatedUserId();
+        return ResponseEntity.ok(orderLogHandler.getLogsByUserId(userId));
     }
 }

@@ -15,5 +15,5 @@ public interface IOrderLogHandler {
     void createReadyLog(ReadyLogRequest request);
     void createDeliveredLog(DeliveredLogRequest request);
     void createCancelledLog(CancelledLogRequest request);
-    List<OrderLogSummaryResponse> getLogsByUserId();
+    List<OrderLogSummaryResponse> getLogsByUserId(Long userId);
 }
