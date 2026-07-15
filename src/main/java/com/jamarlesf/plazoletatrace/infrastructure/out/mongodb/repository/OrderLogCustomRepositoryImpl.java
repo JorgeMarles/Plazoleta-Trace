@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.time.LocalDate;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class OrderLogCustomRepositoryImpl implements IOrderLogCustomRepository {
     }
 
     @Override
-    public List<OrderDurationSummary> findAllOrderDurations(java.time.LocalDate date) {
+    public List<OrderDurationSummary> findAllOrderDurations(LocalDate date) {
         Criteria criteria = new Criteria();
         if (date != null) {
             criteria = Criteria.where("dateTime").gte(date.atStartOfDay()).lt(date.plusDays(1).atStartOfDay());

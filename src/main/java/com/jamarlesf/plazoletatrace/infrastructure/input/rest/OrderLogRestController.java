@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/v1/logs")
 @RequiredArgsConstructor
@@ -78,7 +79,7 @@ public class OrderLogRestController {
     public ResponseEntity<List<OrderDurationResponse>> getAllOrderDurations(
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            java.time.LocalDate date) {
+            LocalDate date) {
         return ResponseEntity.ok(orderLogHandler.getAllOrderDurations(date));
     }
 
