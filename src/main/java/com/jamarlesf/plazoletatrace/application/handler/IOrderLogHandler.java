@@ -5,8 +5,12 @@ import com.jamarlesf.plazoletatrace.application.dto.request.DeliveredLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PendingLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PreparationLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.ReadyLogRequest;
+import com.jamarlesf.plazoletatrace.application.dto.response.OrderDurationResponse;
 import com.jamarlesf.plazoletatrace.application.dto.response.OrderLogSummaryResponse;
 
+import com.jamarlesf.plazoletatrace.application.dto.response.EmployeeRankingSummaryResponse;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IOrderLogHandler {
@@ -16,4 +20,7 @@ public interface IOrderLogHandler {
     void createDeliveredLog(DeliveredLogRequest request);
     void createCancelledLog(CancelledLogRequest request);
     List<OrderLogSummaryResponse> getLogsByUserId(Long userId);
+    List<OrderDurationResponse> getAllOrderDurations(LocalDate date);
+    OrderLogSummaryResponse getLogByOrderId(Long orderId);
+    List<EmployeeRankingSummaryResponse> getEmployeePerformanceRanking();
 }
