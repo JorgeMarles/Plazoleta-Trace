@@ -5,6 +5,8 @@ import com.jamarlesf.plazoletatrace.application.dto.request.DeliveredLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PendingLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.PreparationLogRequest;
 import com.jamarlesf.plazoletatrace.application.dto.request.ReadyLogRequest;
+import com.jamarlesf.plazoletatrace.application.dto.response.EmployeeRankingSummaryResponse;
+import com.jamarlesf.plazoletatrace.application.dto.response.OrderDurationResponse;
 import com.jamarlesf.plazoletatrace.application.dto.response.OrderLogSummaryResponse;
 import com.jamarlesf.plazoletatrace.application.handler.IOrderLogHandler;
 import com.jamarlesf.plazoletatrace.application.mapper.IOrderLogRequestMapper;
@@ -14,6 +16,7 @@ import com.jamarlesf.plazoletatrace.domain.model.OrderLogSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -53,5 +56,22 @@ public class OrderLogHandlerImpl implements IOrderLogHandler {
     public List<OrderLogSummaryResponse> getLogsByUserId(Long userId) {
         List<OrderLogSummary> summaries = orderLogServicePort.getOrderLogsByCustomerId(userId);
         return orderLogResponseMapper.toResponseList(summaries);
+    }
+
+    @Override
+    public List<OrderDurationResponse> getAllOrderDurations(LocalDate date) {
+        return orderLogResponseMapper.toOrderDurationResponseList(orderLogServicePort.getAllOrderDurations(date));
+    }
+
+    @Override
+    public OrderLogSummaryResponse getLogByOrderId(Long orderId) {
+        return orderLogResponseMapper.toResponse(orderLogServicePort.getOrderLogSummaryByOrderId(orderId));
+    }
+
+    @Override
+    public List<EmployeeRankingSummaryResponse> getEmployeePerformanceRanking() {
+        return orderLogResponseMapper.toEmployeeRankingResponseList(
+                orderLogServicePort.getEmployeePerformanceRanking()
+        );
     }
 }

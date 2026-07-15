@@ -5,20 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderLogSummaryResponse {
+public class OrderDurationResponse {
     private Long orderId;
-    private Long userId;
-    private String userEmail;
-    private Long employeeId;
-    private String employeeEmail;
-    private List<LogDetailResponse> logs;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private Long totalDurationSeconds;
-    private Map<String, Long> durationPerStateSeconds;
 }
